@@ -18,7 +18,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H <your-server-ip> >> ~/.ssh/known_hosts  # Add server's fingerprint
+        ssh-keyscan -H 54.82.204.201 >> ~/.ssh/known_hosts  # Add server's fingerprint
 
     - name: Run curl command
       run: |
