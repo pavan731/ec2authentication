@@ -1,0 +1,30 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Modify to match your repository's main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the appropriate runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H <your-server-ip> >> ~/.ssh/known_hosts  # Add server's fingerprint
+
+    - name: Run curl command
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' https://hooks.slack.com/services/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
+
+    - name: Clean up SSH keys
+      run: |
+        rm ~/.ssh/id_rsa
+        rm ~/.ssh/known_hosts
