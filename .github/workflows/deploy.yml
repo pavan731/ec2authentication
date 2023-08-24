@@ -22,9 +22,42 @@ jobs:
 
     - name: Run curl command
       run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' https://hooks.slack.com/services/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
+        SLACK_WEBHOOK_URL=${{ secrets.SLACK_WEBHOOK_URL }}
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' "$SLACK_WEBHOOK_URL"
 
     - name: Clean up SSH keys
       run: |
         rm ~/.ssh/id_rsa
         rm ~/.ssh/known_hosts
+
+
+# name: Deploy to Server
+
+# on:
+#   push:
+#     branches:
+#       - main  # Modify to match your repository's main branch
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest  # Use the appropriate runner
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Set up SSH
+#       run: |
+#         mkdir -p ~/.ssh
+#         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+#         chmod 600 ~/.ssh/id_rsa
+#         ssh-keyscan -H 54.82.204.201 >> ~/.ssh/known_hosts  # Add server's fingerprint
+
+#     - name: Run curl command
+#       run: |
+#         curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' https://hooks.slack.com/services/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
+
+#     - name: Clean up SSH keys
+#       run: |
+#         rm ~/.ssh/id_rsa
+#         rm ~/.ssh/known_hosts
