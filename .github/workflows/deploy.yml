@@ -22,7 +22,7 @@ jobs:
 
     - name: Run curl command
       run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' $WEBHOOK_URL
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, Authentication is successful!"}' https://hooks.slack.com/services/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
 
     - name: Clean up SSH keys
       run: |
